@@ -2,8 +2,9 @@ FROM php:7-fpm
 
 RUN apt-get update
 RUN apt-get install -y libmcrypt-dev mysql-client
-RUN docker-php-ext-configure mcrypt
-RUN docker-php-ext-install mcrypt mbstring tokenizer pdo_mysql
+RUN pecl install mcrypt-1.0.2
+RUN docker-php-ext-enable mcrypt
+RUN docker-php-ext-install mbstring tokenizer pdo_mysql
 
 RUN mkdir /tax-calculator-server
 COPY . /tax-calculator-server
