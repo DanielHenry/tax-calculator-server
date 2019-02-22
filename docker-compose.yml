@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: tax_calculator_server
+      MYSQL_ROOT_PASSWORD: alwayshandsomebro
+  web:
+    build: ./
+    volumes:
+      -  ./:/tax-calculator-server
+    ports:
+      - "21000:8000"
+    links:
+      - db
