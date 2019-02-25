@@ -8,11 +8,15 @@ services:
     environment:
       MYSQL_DATABASE: tax_calculator_server
       MYSQL_ROOT_PASSWORD: alwayshandsomebro
+    expose:
+      - '3306'
   web:
     build: ./
     volumes:
       -  ./:/tax-calculator-server
     ports:
       - "127.0.0.1:21000:8000"
+    depends_on:
+      - db
     links:
       - db
