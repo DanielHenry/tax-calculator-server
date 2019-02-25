@@ -15,7 +15,24 @@ class TaxController extends Controller
      */
     public function index()
     {
-        //
+        $priceSubtotal = 0;
+        $taxSubtotal = 0.0;
+        $listOfTaxes = [];
+        $taxes = Tax::all();
+        foreach ($taxes as $tax) {
+            $completeTax = Tax::getComplete($tax);
+            $priceSubtotal += $completeTax['price'];
+            $taxSubtotal += $completeTax['tax'];
+            array_push($listOfTaxes, $completeTax);
+        }
+        $grandTotal = floatval($priceSubtotal) + $taxSubtotal;
+        $result = [
+            'priceSubtotal' => $priceSubtotal,
+            'taxSubtotal' => $taxSubtotal,
+            'grandTotal' => $grandTotal,
+            'taxes' => $listOfTaxes,
+        ];
+        return response()->json($result);
     }
 
     /**
