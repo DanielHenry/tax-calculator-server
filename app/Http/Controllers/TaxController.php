@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tax;
 use Illuminate\Http\Request;
+use Validator;
 
 class TaxController extends Controller
 {
@@ -35,7 +36,33 @@ class TaxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $payload = $request->isJson() ? $request->json()->all() : [];
+            $rules = [
+                'name' => 'required|string|max:254',
+                'taxCode' => 'required|integer|max:1',
+                'price' => 'required|integer|max:11',
+            ];
+            $validator = Validator::make($payload, $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'msg' => 'Invalid parameter!',
+                ]);
+            } else {
+                $tax = new Tax;
+                $tax->name = $payload['name'];
+                $tax->tax_code = $payload['taxCode'];
+                $tax->price = $payload['price'];
+                $tax->save();
+                return response()->json([
+                    'msg' => 'Success create a tax!',
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'msg' => 'Error appears!',
+            ]);
+        }
     }
 
     /**
