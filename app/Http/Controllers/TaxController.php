@@ -57,8 +57,8 @@ class TaxController extends Controller
             $payload = $request->isJson() ? $request->json()->all() : [];
             $rules = [
                 'name' => 'required|string|max:254',
-                'taxCode' => 'required|integer|max:1',
-                'price' => 'required|integer|max:11',
+                'taxCode' => 'required|integer',
+                'price' => 'required|integer',
             ];
             $validator = Validator::make($payload, $rules);
             if ($validator->fails()) {
