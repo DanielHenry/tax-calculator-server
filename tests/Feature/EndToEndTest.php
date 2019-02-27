@@ -18,7 +18,7 @@ class EndToEndTest extends TestCase
      */
     public function testSampleCase()
     {
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Lucky Stretch',
             'taxCode' => 2,
             'price' => 1000,
@@ -30,7 +30,7 @@ class EndToEndTest extends TestCase
             ]);
 
         
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Big Mac',
             'taxCode' => 1,
             'price' => 1000,
@@ -42,7 +42,7 @@ class EndToEndTest extends TestCase
             ]);
         
 
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Movie',
             'taxCode' => 3,
             'price' => 150,
@@ -54,7 +54,7 @@ class EndToEndTest extends TestCase
             ]);
 
 
-        $response = $this->get('/taxes');
+        $response = $this->get('/api/taxes');
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -101,7 +101,7 @@ class EndToEndTest extends TestCase
      */
     public function testSampleCaseWithDifferentOrder()
     {
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Movie',
             'taxCode' => 3,
             'price' => 150,
@@ -113,7 +113,7 @@ class EndToEndTest extends TestCase
             ]);
 
 
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Lucky Stretch',
             'taxCode' => 2,
             'price' => 1000,
@@ -125,7 +125,7 @@ class EndToEndTest extends TestCase
             ]);
 
         
-        $response = $this->json('POST', '/taxes', [
+        $response = $this->json('POST', '/api/taxes', [
             'name' => 'Big Mac',
             'taxCode' => 1,
             'price' => 1000,
@@ -137,7 +137,7 @@ class EndToEndTest extends TestCase
             ]);
 
 
-        $response = $this->get('/taxes');
+        $response = $this->get('/api/taxes');
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -184,7 +184,7 @@ class EndToEndTest extends TestCase
      */
     public function testEmptyTaxes()
     {
-        $response = $this->get('/taxes');
+        $response = $this->get('/api/taxes');
         $response
             ->assertStatus(200)
             ->assertJson([
