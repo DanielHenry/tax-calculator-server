@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Tax;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use Validator;
 
 class TaxController extends Controller
@@ -67,6 +69,7 @@ class TaxController extends Controller
                 ]);
             } else {
                 $tax = new Tax;
+                $tax->id = Uuid::uuid4()->toString();
                 $tax->name = $payload['name'];
                 $tax->tax_code = $payload['taxCode'];
                 $tax->price = $payload['price'];
